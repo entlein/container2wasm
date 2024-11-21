@@ -5,6 +5,8 @@ Whats working:
 - gcc compile
 - podman build -t <myfile> .
   
+![podman-build](./media/podmanbuild.png)
+
 
 
 Whats not working:
