@@ -1,0 +1,46 @@
+services:
+  registry:
+    image: registry
+    image: distribution/distribution:latest
+    ports:
+      - "5001:5000"
+    networks:
+      - registry-network
+    environment:
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin': '[http://localhost:8080]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods: '[HEAD,POST,PUT,GET,OPTIONS,DELETE]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Credentials: '[true]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers: '[Origin,Content-Type,Authorization,Accept,Cache-Control]'
+
+
+networks:
+  registry-network:
+    driver: bridge
+
+
+    
+## What you need to do is
+#docker pull alpine:latest
+#docker tag alpine:latest localhost:5000/entlein:latest
+#docker push localhost:5000/entlein:latest
+# edit docker.config 
+#{
+#  "insecure-registries": ["192.168.107.1:5000"]
+#}
+#docker tag alpine:latest 192.168.107.1:5000/entlein:latest
+#docker push docker load -i entlein-modified.tar
+# vim /etc/containers/registries.conf  insecure=true
+#[[registry]]
+#location = "192.168.107.1:5000"
+#insecure = true
+#use podman for pushing and pulling
+#podman tag alpine:latest 192.168.127.1:5001/entlein:hi
+#podman push 192.168.127.1:5001/entlein:hi --tls-verify=false
+
+#ssh -L 5001:localhost:5001 -N -f -i /Users/croedig/.local/share/containers/podman/machine/machine -p 54892 root@localhost -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o CheckHostIP=no -o LogLevel=ERROR -o SetEnv=LC_ALL= -t
+# ifconfig | grep en0 -A 5
+#localhost:/# export PODMAN_IGNORE_CGROUPSV1_WARNING=true
+#localhost:/# podman pull 192.168.0.66:5001/entlein:hi --tls-verify=false --tls-verify=false
+# create an ssh tunnel from wasm in chrome to the macbook
+# 
+#
