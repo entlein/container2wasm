@@ -13,7 +13,7 @@ self.addEventListener('install', (event) => {
           '/stack-worker.js',
           '/worker.js',
           '/xterm-pty.conf',
-          'ws-delegate.js'
+          '/ws-delegate.js'
           // Add other assets here
         ]);
       })
