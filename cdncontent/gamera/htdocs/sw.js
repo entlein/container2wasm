@@ -5,6 +5,15 @@ self.addEventListener('install', (event) => {
           '/',
           '/index.html',
           '/out.wasm',
+          '/index.js',
+          '/wasi_defs.js',
+          '/worker-util.js',
+          '/wasi-util.js',
+          '/stack.js',
+          '/stack-worker.js',
+          '/worker.js',
+          '/xterm-pty.conf',
+          'ws-delegate.js'
           // Add other assets here
         ]);
       })
