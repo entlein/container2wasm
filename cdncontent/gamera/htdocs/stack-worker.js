@@ -1,5 +1,5 @@
-importScripts(location.origin + "/index.js");
-importScripts(location.origin + "/wasi_defs.js");
+importScripts(location.origin + "/browser_wasi_shim/index.js");
+importScripts(location.origin + "/browser_wasi_shim/wasi_defs.js");
 importScripts(location.origin + "/worker-util.js");
 importScripts(location.origin + "/wasi-util.js");
 
