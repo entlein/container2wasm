@@ -41,7 +41,7 @@
 
       var nwStack;
       var netParam = getNetParam();
-      var workerImage = location.origin + "/out.wasm";
+      var workerImage = location.origin + "/container2wasm/out.wasm";
       if (netParam) {
           if (netParam.mode == 'delegate') {
               nwStack = delegate(worker, workerImage, netParam.param);
