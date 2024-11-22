@@ -9,6 +9,9 @@ self.addEventListener('install', (event) => {
   self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(event.request).then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const newHeaders = new Headers(response.headers);
         newHeaders.set('Cross-Origin-Opener-Policy', 'same-origin');
         newHeaders.set('Cross-Origin-Embedder-Policy', 'require-corp');
@@ -18,7 +21,20 @@ self.addEventListener('install', (event) => {
           headers: newHeaders,
         });
       }).catch((error) => {
-        return caches.match(event.request);
+        console.error('Fetch failed; returning offline page instead.', error);
+        return caches.match(event.request).then((response) => {
+          if (response) {
+            return response;
+          } else {
+            return new Response('Service is offline', {
+              status: 503,
+              statusText: 'Service Unavailable',
+              headers: new Headers({
+                'Content-Type': 'text/plain'
+              })
+            });
+          }
+        });
       })
     );
   });
