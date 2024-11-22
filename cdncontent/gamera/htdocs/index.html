@@ -15,6 +15,15 @@
     <script src="./stack.js"></script>
     <script src="./ws-delegate.js"></script>
     <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+      }
+    </script>
+    <script>
       const xterm = new Terminal();
       xterm.open(document.getElementById("terminal"));
 
