@@ -7,6 +7,13 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    
+    const url = new URL(event.request.url);
+
+    // Exclude requests to certain domains or paths
+    if (url.origin === 'https://cdn.jsdelivr.net') {
+      return;
+    }
   event.respondWith(
     fetch(event.request).then((response) => {
       if (!response.ok) {
