@@ -1,6 +1,6 @@
 importScripts("https://cdn.jsdelivr.net/npm/xterm-pty@0.9.4/workerTools.js");
-importScripts(location.origin + "/container2wasm/index.js");
-importScripts(location.origin + "/container2wasm/wasi_defs.js");
+importScripts(location.origin + "/container2wasm/browser_wasi_shim/index.js");
+importScripts(location.origin + "/container2wasm/browser_wasi_shim/wasi_defs.js");
 importScripts(location.origin + "/container2wasm/worker-util.js");
 importScripts(location.origin + "/container2wasm/wasi-util.js");
 
