@@ -2,18 +2,18 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
       caches.open('v1').then((cache) => {
         return cache.addAll([
-          './',
-          './index.html',
-          './out.wasm',
-          './index.js',
-          './wasi_defs.js',
-          './worker-util.js',
-          './wasi-util.js',
-          './stack.js',
-          './stack-worker.js',
-          './worker.js',
-          './xterm-pty.conf',
-          './ws-delegate.js'
+          '/',
+          '/index.html',
+          '/out.wasm',
+          '/index.js',
+          '/wasi_defs.js',
+          '/worker-util.js',
+          '/wasi-util.js',
+          '/stack.js',
+          '/stack-worker.js',
+          '/worker.js',
+          '/xterm-pty.conf',
+          '/ws-delegate.js'
           // Add other assets here
         ]);
       })
