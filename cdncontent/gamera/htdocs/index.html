@@ -1,35 +1,185 @@
-<html>
-  <head>
-    <title>container + WASI on browser</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.17.0/css/xterm.css">
-  </head>
-  <body>
-    <p>
-      This is gamera, an MHD codebase. Please execute:<br>
-      <code>/app/build/bin/gamera.x /app/examples/mhdtests/loop2d.xml</code><br>
-      to see what the code does, or edit the <code>loop2d.xml</code> file to play around with initial conditions.
-    </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Center for Geospace Storms (CGS): GAMERA</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L75RMJZJGR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-L75RMJZJGR');
+  </script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="CGS JHUAPL Geospace Storms NASA DRIVE Center">
+  <meta name="author" content="JHUAPL">
+  <link rel="icon" href="favicon.ico">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:image" content="https://cgs.jhuapl.edu/includes/cgs-banner2022.PNG">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:description" content="Center for Geospace Storms (CGS) - A NASA DRIVE Center">
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+  <link rel="manifest" href="./images/site.webmanifest">
+  <link rel="mask-icon" href="./images/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="./images/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="./images/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="google-site-verification" content="_z8OCfkXPbNOyR2-viBfWfCbzDcBnokg-Gig7HLqHdg" />
+
+  <!-- Primary Meta Tags -->
+  <title>Center for Geospace Storms (CGS) - A NASA DRIVE Center</title>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cgs.jhuapl.edu/">
+  <meta property="og:title" content="Center for Geospace Storms (CGS)">
+  <meta property="og:description" content="Center for Geospace Storms will transform the understanding and predictability of space weather by developing a Multiscale Atmosphere-Geospace Environment model. This NASA DRIVE Science Center (DSC) is part of an integrated multi-agency initiative, DRIVE (Diversity, Realize, Integrate, Venture, Educate), put forward as a high priority recommendation of the 2013 Solar and Space Physics Decadal Survey.">
+  <meta property="og:image" content="https://cgs.jhuapl.edu/includes/cgs-banner20222.PNG">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://cgs.jhuapl.edu/">
+  <meta property="twitter:title" content="Center for Geospace Storms (CGS)">
+  <meta property="twitter:description" content="Center for Geospace Storms will transform the understanding and predictability of space weather by developing a Multiscale Atmosphere-Geospace Environment model. This NASA DRIVE Science Center (DSC) is part of an integrated multi-agency initiative, DRIVE (Diversity, Realize, Integrate, Venture, Educate), put forward as a high priority recommendation of the 2013 Solar and Space Physics Decadal Survey.">
+  <meta property="twitter:image" content="https://cgs.jhuapl.edu/includes/cgs-banner20222.PNG">
+
+  <!-- Stylesheets and Scripts -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.17.0/css/xterm.css">
+  <link href="./images/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./images/datatables.min.css">
+  <link rel="stylesheet" type="text/css" href="./images/editor.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="./images/select.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="./images/buttons.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="./images/rowReorder.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="./images/responsive.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="./images/fixedHeader.bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./images/responsive.bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./images/searchPanes.dataTables.min.css">
+  <link href="./images/rowGroup.dataTables.min.css" rel="stylesheet">
+  <link href="./images/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="./images/all.css">
+  <link rel="stylesheet" href="./images/site.css">
+  <style>
+    .embed-responsive-item { min-height: 400px; }
+  </style>
+  <!-- style CSS -->
+<link rel="stylesheet" href="./images/site.css">
+<script>
+	$.fn.dataTable.render.ellipsis = function ( cutoff ) {
+    return function ( data, type, row ) {
+        return type === 'display' && data.length > cutoff ?
+            data.substr( 0, cutoff ) +'…' :
+            data;
+    }
+};
+</script>
+<script>
+    function urlify(text) {
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, function(url) {
+    return '<a href="' + url + '" target="_blank">' + url + '</a>';
+  })
+  // or alternatively
+  // return text.replace(urlRegex, '<a href="$1">$1</a>')
+}
+</script> 
+
+</head>
+<body class="" id="top">
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJ5XLTG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="fixed-top bg-black">
+  <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#470606;border-bottom:solid #363636 1px;border-top:solid #363636 1px;">
+      <div class="container-fluid container-lg">
+        <a href="/"><img src="./images/CGSlogo-white.png" class="img-responsive nav-logo d-none d-sm-block"><img src="/images/logos/CGSlogo-white-logoOnly.png" class="img-responsive nav-logo d-block d-sm-none"></a>
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+        <div class="collapse navbar-collapse" id="navbarsExample07">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button" data-bs-toggle="dropdown" aria-expanded="false"> CGS at a Glance </a>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1">
+                <li><a class="dropdown-item text-start" href="./images/index.php#top">Geospace Storms</a></li>
+                <li><a class="dropdown-item text-start" href="./images/index.php#Science-Objectives">Science Objectives</a></li>
+                <li><a class="dropdown-item text-start" href="./images/index.php#Benefits">Benefits</a></li>
+                <li><a class="dropdown-item text-start" href="./images/Our-Team.php">Our Team</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="/Science-Themes/">Science Themes </a> </li>
+            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Models </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2"> <a class="dropdown-item text-start" href="/Models/">MAGE</a> <a class="dropdown-item text-start" href="/Models/chimp.php">CHIMP</a> <a class="dropdown-item text-start" href="/Models/gamera.php">GAMERA</a> <a class="dropdown-item text-start" href="/Models/ipwm.php">IPWM</a> <a class="dropdown-item text-start" href="/Models/rcm.php">RCM</a> <a class="dropdown-item text-start" href="/Models/remix.php">REMIX</a> <a class="dropdown-item text-start" href="/Models/sami3.php">SAMI3</a> <a class="dropdown-item text-start" href="/Models/ts07d.php">TS07D</a> <a class="dropdown-item text-start" href="/Models/waccm-x.php">WACCM-X</a> </div>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="/Missions-and-Data-Sets/">Missions &amp; Data Sets </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/Space-Weather/">Space Weather </a> </li>
+            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink3"> <a class="dropdown-item text-start" href="/Resources/Science-Highlights.php">Science Highlights</a><a class="dropdown-item text-start" href="/Resources/Publications.php">Publications</a> <a class="dropdown-item text-start" href="/News-and-Events/">News &amp; Events</a> <a class="dropdown-item text-start" href="/Resources/May-10-12-Geospace-Storm.php">May 2024 Geospace Storm</a><a class="dropdown-item text-start" href="https://splash.jhuapl.edu" target="_blank">SPLASH!</a> <a class="dropdown-item text-start" href="/Resources/CGS-Identity-Toolkit.php">CGS Identity Toolkit</a></div>
+            </li>
+            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Participate </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink4"> <a class="dropdown-item text-start" href="/Participate/Education.php">Education</a> <a class="dropdown-item text-start" href="/Participate/Student-Opportunities.php">Student Opportunities</a> <a class="dropdown-item text-start" href="/Participate/Outreach.php">Outreach</a></div>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="/feedback/"><i class="fas fa-envelope"></i></a> </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Content section -->
+<section>
+  <div class="container content">
+    <div class="row">
+      <div class="col-12">
+        <div class="col-12 text-start text-sm-end m-0 pt-0 pb-4 py-sm-4">
+          <a href="index.php"><span class="h5"><span class="fw-bold">MAGE</span></span></a> &nbsp;<small><a href="chimp.php">CHIMP</a> | <a href="gamera.php">GAMERA</a> | <a href="ipwm.php">IPWM</a> | <a href="rcm.php">RCM</a> | <a href="remix.php">REMIX</a> | <a href="sami3.php">SAMI3</a> | <a href="ts07d.php">TS07D</a> | <a href="waccm-x.php">WACCM-X</a></small>
+        </div>
+        <div class="border-bottom pb-2 mb-4">
+          <h1>(This is a static Demo: please see  <a href="https://cgs.jhuapl.edu" target="https://cgs.jhuapl.edu">https://cgs.jhuapl.edu</a>  for the actual site) </h1>
+          
+          <h1> GAMERA running here in your browser  </h1>
+          <h4><span class="fw-bold">G</span>rid <span class="fw-bold">A</span>gnostic <span class="fw-bold">M</span>HD for <span class="fw-bold">E</span>xtended <span class="fw-bold">R</span>esearch <span class="fw-bold">A</span>pplications</h4>
+        </div>
+        <div class="col-12 float-start">
+          <img src="./images/gamera-logo-trans-md.png" alt="GAMERA Logo" class="img-fluid float-start">
+          <h2>About</h2>
+          <p>GAMERA is a new magnetohydrodynamic (MHD) simulation tool building and improving upon the high-heritage Lyon-Fedder-Mobarry (LFM) code.
+             GAMERA has been written completely from scratch in modern Fortran and provides 
+             a flexible, portable, and exascale-capable MHD code. 
+             GAMERA features multiple improvements over LFM including:
+              minimal external library dependence, high degree of optimization, OpenMP parallelism allowing use of heterogeneous architectures, and multiple numerics upgrades. Thus, while preserving all key numerical algorithms underlying the LFM code, GAMERA provides a robust and user-friendly solution for sustainable future.</p>
+          <p>In CGS, a global magnetosphere configuration of GAMERA will serve as the backbone of the geospace part of the <a href="./">MAGE</a> model, will incorporate the other magnetospheric components and ultimately couple to the <a href="waccm-x.php">WACCM-X</a> model of the atmosphere-ionosphere system.</p>
+          <p class="fw-bolder text-center border-top border-bottom p-2">Contact info: <a href="mailto:gamera-devel@listserv.jhuapl.edu">gamera-devel@listserv.jhuapl.edu</a></p>
+          <p> This static page demonstrates very early-stage technology, that emulates a Linux environment and lets you run the actual gamera code.
+              However, only using what your browser provides, meaning, the performance is minimal.
+              Also, at this point of development, the writing of HDF5 files is not supported, so you will see a "Killed" message at the point when I/O occurs.
+          </p> 
+        </div>
+      </div>
+    </div>
+
+
     <div id="terminal"></div>
-    <script src="https://cdn.jsdelivr.net/npm/xterm@4.17.0/lib/xterm.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xterm-pty@0.9.4/index.js"></script>
-    <script src="./stack.js"></script>
-    <script src="./ws-delegate.js"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js').then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        }).catch((error) => {
-          console.log('Service Worker registration failed:', error);
-        });
-      }
-    </script>
-    <script>
-      const xterm = new Terminal();
-      xterm.open(document.getElementById("terminal"));
-
-      const { master, slave } = openpty();
-
-      termios = slave.ioctl("TCGETS");
+      <script src="https://cdn.jsdelivr.net/npm/xterm@4.17.0/lib/xterm.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/xterm-pty@0.9.4/index.js"></script>
+      <script src="./stack.js"></script>
+      <script src="./ws-delegate.js"></script>
+      <script>
+        const xterm = new Terminal();
+        xterm.open(document.getElementById("terminal"));
+  
+        const { master, slave } = openpty();
+        termios = slave.ioctl("TCGETS");
       termios.iflag &= ~(/*IGNBRK | BRKINT | PARMRK |*/ ISTRIP | INLCR | IGNCR | ICRNL | IXON);
       termios.oflag &= ~(OPOST);
       termios.lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
@@ -41,7 +191,7 @@
 
       var nwStack;
       var netParam = getNetParam();
-      var workerImage = location.origin + "/container2wasm/out.wasm";
+      var workerImage = location.origin + "/out.wasm";
       if (netParam) {
           if (netParam.mode == 'delegate') {
               nwStack = delegate(worker, workerImage, netParam.param);
@@ -52,7 +202,7 @@
       if (!nwStack) {
           worker.postMessage({type: "init", imagename: workerImage});
       }
-      new TtyServer(slave).start(worker, nwStack);
+      new TtyServer(slave).start(worker, nwStack);  
 
       function getNetParam() {
           var vars = location.search.substring(1).split('&');
@@ -67,6 +217,27 @@
           }
           return null;
       }
-    </script>
-  </body>
-</html>
+    </script>   
+  </div> 
+
+    <div class="row">
+      <div class="col-12">
+        <h2>History</h2>
+        <p>LFM code was rewritten by J. Lyon, J. Fedder and C. Mobarry at NRL in the 1980's. Its heritage is traced back to pioneering work on Flux Corrected Transport (FCT) schemes in the same group (J. Boris, D. Book, S. Zalesak, K. Hain). Initial simulations started with very high order spatial interpolation schemes (e.g., 20th order), which was later reduced to 8th order standard today. Over the years, the LFM code or its derivatives have been applied to the terrestrial magnetosphere, planetary magnetospheres (Saturn, Neptune, Uranus, Venus), to inner and outer heliosphere, and regional magnetotail simulations. In 2000's the code was MPI-parallelized which allowed very high resolution simulations reproducing magnetopause boundary instabilities (Kelvin-Helmholtz) and flux-tranfer events (FTEs), ionospheric field-aligned currents with remarkable resemblence to observations, and dipolarization fronts in the magnetotail. Also in 2000's, as part of the Center for Integrated Space Weather Modeling (CISM), a geospace model coupling framework was developed, which allowed implementation of coupling with the Rice Convection Model (<a href="rcm.php">RCM</a>) of the inner magnetosphere and the NCAR <a href="https://www.hao.ucar.edu/modeling/tgcm/tie.php" target="_blank">TIEGCM</a> model of the ionosphere-thermosphere. Finally, in the late 2000's LFM was extended to include the capability to simulate multiple ion fluids. This extension has become known as Multi-Fluid LFM (MFLFM).</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2>Applications</h2>
+        <p>GAMERA was written in a very flexible way and allows easy adaptation to different geometries and initial/boundary conditions via user files. The primary current applications are the terrestrial magnetosphere, the inner heliosphere/solar wind, magnetospheres of outer planets, current sheets and reconnection, and MHD instabilities (e.g, Kelvin-Helmholtz and Rayleigh-Taylor.)</p>
+      </div>
+    </div>
+
+    <div class="row my-4" id="references">
+      <div class="col-12">
+        <h2>References</h2>
+        <div class="small">
+          <p>Lyon, J. G., Fedder, J. A., &amp; Mobarry, C. M. (2004). The Lyon-Fedder-Mobarry (LFM) global MHD magnetospheric simulation code. Journal of Atmospheric and Solar-Terrestrial Physics, 66, 1333. <a href="http://doi.org/10.1016/j.jastp.2004.03.020" target="_blank">http://doi.org/10.1016/j.jastp.2004.03.020</a></p>
+          <p>Merkin, V. G., &amp; Lyon, J. G. (2010). Effects of the low-latitude ionospheric boundary condition on the global magnetosphere. Journal of Geophysical Research, 115(A), A10202. <a href="http://doi.org/<!DOCTYPE html>
+<html lang="en">
